@@ -8,7 +8,7 @@ const Item = ({url,imageUrl,name,episodes,type}) => {
                 <img src={imageUrl} alt="" />
             </div>
             <div className="right">
-                <h1><a href={url}>{name}</a></h1>
+                <h1><a href={url} target="_blank">{name}</a></h1>
                 <h5>Episodes: {episodes} | Type: {type}</h5> 
             </div>
         </div>
