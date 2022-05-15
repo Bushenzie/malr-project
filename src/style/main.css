@@ -1,0 +1,184 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;700&display=swap");
+* {
+  font-family: 'Ubuntu', sans-serif;
+}
+
+body {
+  color: #E8E9EB;
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#313638), to(#222222));
+  background-image: linear-gradient(180deg, #313638, #222222);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+.container {
+  position: relative;
+}
+
+.container .status {
+  position: absolute;
+  top: 5%;
+}
+
+.heading {
+  text-align: center;
+  -webkit-box-shadow: 0 1px 2rem #000;
+          box-shadow: 0 1px 2rem #000;
+  background-color: #F09D51;
+  padding: 3rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.heading h1 {
+  font-size: 3rem;
+}
+
+.heading h1, .heading p {
+  text-shadow: 1px 2px 0.5rem #000;
+  margin: 0;
+}
+
+.form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  gap: 2rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form .input_field {
+  border-radius: .7rem;
+  outline: none;
+  border: none;
+  font-size: 2rem;
+  padding: 1.2rem 1rem;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.form .input_field:hover, .form .input_field:focus {
+  background-color: #DDD;
+}
+
+.form .btn {
+  cursor: pointer;
+  font-size: 1rem;
+  background: none;
+  border: none;
+  color: #E8E9EB;
+  text-transform: uppercase;
+  border-radius: .7rem;
+  background-color: #F09D51;
+  padding: 1.75rem 2.5rem;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+}
+
+.form .btn:hover {
+  background-color: #F06543;
+}
+
+.item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 2%;
+  margin: 3% 5% 3%;
+}
+
+.item .left img {
+  border-radius: 1rem;
+}
+
+.item .left .questionMark {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 225px;
+  height: 318px;
+  margin: 0;
+  font-size: 10rem;
+  background-color: #222222;
+  border-radius: 1rem;
+  border: 0.125rem solid rgba(255, 255, 255, 0.3);
+}
+
+.item .right {
+  max-width: 22rem;
+  text-transform: uppercase;
+}
+
+.item .right h1 {
+  font-size: 1.75rem;
+}
+
+.item .right h1 a {
+  color: #E8E9EB;
+}
+
+.item .right h1 a:hover {
+  color: #cecece;
+}
+
+@media (max-width: 768px) {
+  .heading h1 {
+    font-size: 2.5rem;
+  }
+  .form .btn {
+    padding: 2rem 3rem;
+  }
+  .form .input_field {
+    width: 90%;
+    padding: 1.5rem 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .heading h1 {
+    font-size: 2rem;
+  }
+  .item {
+    margin-top: 10%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+/*# sourceMappingURL=main.css.map */
