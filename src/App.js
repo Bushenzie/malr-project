@@ -9,41 +9,57 @@ import "./style/main.css"
 const App = () => {
 
   const [status,setStatus] = useState("User not picked");
+  const [randomNum,setRandomNum] = useState(0);
   const [anime,setAnime] = useState({});
   const [data,setData] = useState([]);
+  const [score,setScore] = useState("---");
 
-  const GetData = async (url) => {
+  const GetData = async (url,category) => {
       setStatus("Loading...")
-      console.log("Loading...");
 
       const response = await fetch(url);
       const parsed = await response.json();
-      if(parsed.status === 400 || parsed.status === 500) {
+
+      if(parsed.status >= 300 || parsed.status <= 500 ) {
           setData([])
           setStatus("User Not Found");
-          console.log("User Not Found");
       } else {
-          const filtered = parsed.data.filter(item => item["watching_status"] === 6)
-          setData(filtered);
+        let filtered;
+        if(category === 7) {
+          filtered = parsed.data;
+        } else  {
+          filtered = parsed.data.filter(item => item["watching_status"] === category)
+        }
+        setData(filtered);
+        let temp_randomNum = Math.floor(Math.random()*filtered.length);
+        setRandomNum(temp_randomNum); 
+        if(filtered.length !== 0) {
           setStatus("User Found");
-          if(filtered.length === 0) {
-            setStatus("User's list is Empty");
-          }
-          console.log("User Found");
+          GetScore(`https://api.jikan.moe/v4/anime/${filtered[temp_randomNum].anime.mal_id}`)
+        }else 
+          setStatus("User's list is Empty");
       }
   }
 
+  const GetScore = async (url) => {
+    const response = await fetch(url);
+    const parsed = await response.json();
+    
+    
+    setScore(parsed.data.score)
+  }
+
   useEffect(()=> {
-    if(data.length) {
-      let randomNum = Math.floor(Math.random()*data.length)+1; 
-      setAnime({  name:data[randomNum].anime.title,
+    if(data.length && randomNum && score) {
+      setAnime({  name: data[randomNum].anime.title,
                   url: data[randomNum].anime.url,
                   episodes: !data[randomNum].anime.episodes ? data[randomNum].anime.status : data[randomNum].anime.episodes,
                   type: data[randomNum].anime.type,
                   imageUrl: data[randomNum].anime.images.jpg.image_url
                 })
     };
-  },[data])
+  },[data,randomNum,score])
+
 
   return (
     <div className="container">
@@ -51,10 +67,12 @@ const App = () => {
       {data.length !== 0 ? 
       <Item 
       name={anime.name} 
+      id={anime.mal_id}
       url={anime.url}
       episodes={anime.episodes} 
       type={anime.type} 
       imageUrl={anime.imageUrl}
+      score={score}
       /> 
       : <StatusShow status={status}/> }
       <UserInput GetData={GetData}/>
