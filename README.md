@@ -5,4 +5,7 @@ You can preview and try page [here](https://mal-random.netlify.app/).
 
 Project is using Jikan API
 
+Known issues:
+1. Dropped animes sometimes bug ang glitches
+2. Image not showing
 
