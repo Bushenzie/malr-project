@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import UserInput from "./components/UserInput";
 import Item from "./components/Item"
 import StatusShow from "./components/StatusShow";
@@ -8,58 +8,70 @@ import "./style/main.css"
 
 const App = () => {
 
+  //STATES
   const [status,setStatus] = useState("User not picked");
-  const [randomNum,setRandomNum] = useState(0);
   const [anime,setAnime] = useState({});
   const [data,setData] = useState([]);
   const [score,setScore] = useState("---");
 
+
+
+  // PARSING DATA FROM JIKAN API
   const GetData = async (url,category) => {
+
+      document.body.style.cursor = "wait";
       setStatus("Loading...")
+      
 
       const response = await fetch(url);
       const parsed = await response.json();
 
+      // CHECKING FOR ERROR
       if(parsed.status >= 300 || parsed.status <= 500 ) {
           setData([])
           setStatus("User Not Found");
-      } else {
-        let filtered;
+      } 
+      else {
+
+        // IF CATEGORY = 7(ALL) THEN SKIP FILTERING TO SHOW ALL ELSE FILTER BY CATEGORY
+        let animeData;
         if(category === 7) {
-          filtered = parsed.data;
-        } else  {
-          filtered = parsed.data.filter(item => item["watching_status"] === category)
+          animeData = parsed.data;
         }
-        setData(filtered);
-        let temp_randomNum = Math.floor(Math.random()*filtered.length);
-        setRandomNum(temp_randomNum); 
-        if(filtered.length !== 0) {
+        else {
+          animeData = parsed.data.filter(item => item["watching_status"] === category)
+        }
+
+        //SET DATA TO STATE
+        setData(animeData);
+
+        //PICKING RANDOM ANIME
+        let randomNum = Math.floor(Math.random()*animeData.length);
+
+        //IF SOME LIST IS NOT EMPTY THEN PICK RANDOM
+        if(animeData.length) {
+
           setStatus("User Found");
-          GetScore(`https://api.jikan.moe/v4/anime/${filtered[temp_randomNum].anime.mal_id}`)
-        }else 
+
+          //GETTING SCORE FROM ANOTHER API CALL , CUZ FIRST ONE DOESNT SHOW SCORE 
+          GetScore(`https://api.jikan.moe/v4/anime/${animeData[randomNum].anime.mal_id}`);
+          setAnime({  name: animeData[randomNum].anime.title,
+                      url: animeData[randomNum].anime.url,
+                      episodes: !animeData[randomNum].anime.episodes ? animeData[randomNum].anime.status : animeData[randomNum].anime.episodes,
+                      type: animeData[randomNum].anime.type,
+                      imageUrl: animeData[randomNum].anime.images.jpg.image_url})
+        } else { 
           setStatus("User's list is Empty");
+        }
       }
+      document.body.style.cursor = "default";
   }
 
   const GetScore = async (url) => {
     const response = await fetch(url);
     const parsed = await response.json();
-    
-    
-    setScore(parsed.data.score)
+    setScore(parsed.data.score);
   }
-
-  useEffect(()=> {
-    if(data.length && randomNum && score) {
-      setAnime({  name: data[randomNum].anime.title,
-                  url: data[randomNum].anime.url,
-                  episodes: !data[randomNum].anime.episodes ? data[randomNum].anime.status : data[randomNum].anime.episodes,
-                  type: data[randomNum].anime.type,
-                  imageUrl: data[randomNum].anime.images.jpg.image_url
-                })
-    };
-  },[data,randomNum,score])
-
 
   return (
     <div className="container">

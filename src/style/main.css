@@ -14,6 +14,11 @@ body {
   background-attachment: fixed;
 }
 
+body h1, body h2, body h3, body h4, body h5, body h6, body p {
+  margin: 0;
+  padding: 0;
+}
+
 .container {
   position: relative;
 }
@@ -54,10 +59,10 @@ body {
 }
 
 .form {
+  gap: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  gap: 2rem;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
@@ -70,18 +75,41 @@ body {
           align-items: center;
 }
 
-.form .input_field {
+.form .inputs {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 2rem;
+}
+
+.form .inputs .input_field,
+.form .inputs .input_select {
+  background-color: #FFF;
   border-radius: .7rem;
   outline: none;
   border: none;
-  font-size: 2rem;
-  padding: 1.2rem 1rem;
+  font-size: 2em;
+  padding: 1rem .75rem;
   -webkit-transition: all .3s;
   transition: all .3s;
 }
 
-.form .input_field:hover, .form .input_field:focus {
+.form .inputs .input_field:hover, .form .inputs .input_field:focus,
+.form .inputs .input_select:hover,
+.form .inputs .input_select:focus {
   background-color: #DDD;
+}
+
+.form .inputs .input_field {
+  width: 50%;
+}
+
+.form .inputs .input_select {
+  font-size: 1.5rem;
+  width: 30%;
 }
 
 .form .btn {
@@ -103,6 +131,7 @@ body {
 }
 
 .item {
+  width: 30vw;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -112,12 +141,20 @@ body {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
-  gap: 2%;
-  margin: 3% 5% 3%;
+  gap: 5%;
+  margin: 3% auto 3%;
+}
+
+.item .left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
 }
 
 .item .left img {
   border-radius: 1rem;
+  width: 225px;
+  height: 318px;
 }
 
 .item .left .questionMark {
@@ -140,42 +177,76 @@ body {
 }
 
 .item .right {
-  max-width: 22rem;
+  min-width: 17.5rem;
+  max-width: 25rem;
   text-transform: uppercase;
 }
 
 .item .right h1 {
+  line-height: 1.2;
   font-size: 1.75rem;
+  font-weight: 400;
 }
 
 .item .right h1 a {
   color: #E8E9EB;
+  -webkit-text-decoration: .1rem underline;
+          text-decoration: .1rem underline;
 }
 
 .item .right h1 a:hover {
   color: #cecece;
 }
 
+.item .right p {
+  font-weight: 300;
+}
+
+.item .right span#episodes,
+.item .right span#score,
+.item .right span#type {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
 @media (max-width: 768px) {
   .heading h1 {
     font-size: 2.5rem;
   }
+  .item {
+    margin-top: 2rem;
+    gap: 7%;
+  }
   .form .btn {
     padding: 2rem 3rem;
   }
-  .form .input_field {
+  .form .inputs {
+    margin-top: 2rem;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .form .inputs .input_field {
     width: 90%;
     padding: 1.5rem 1rem;
   }
+  .form .inputs .input_select {
+    padding: 1rem 1rem;
+    width: 90%;
+  }
 }
 
-@media (max-width: 480px) {
+@media (max-width: 512px) {
   .heading h1 {
     font-size: 2rem;
   }
   .item {
     text-align: center;
-    margin-top: 10%;
+    margin-top: 3rem;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
         -ms-flex-direction: column;

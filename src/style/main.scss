@@ -17,6 +17,11 @@ body {
     background-image: linear-gradient(180deg,$dark-color,#222222);
     background-repeat: no-repeat;
     background-attachment: fixed;
+
+    h1,h2,h3,h4,h5,h6,p {
+        margin: 0;
+        padding: 0;
+    }
 }
 
 .container {
@@ -49,23 +54,40 @@ body {
 }
 
 .form {
-    display: flex;
     gap: 2rem;
+    display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    .input_field {
-        border-radius: .7rem;
-        outline: none;
-        border:none;
-        font-size: 2rem;
-        padding: 1.2rem 1rem;
-        transition: all .3s;
+    .inputs {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
 
-        &:hover, 
-        &:focus {
-            background-color: #DDD;
+        .input_field,
+        .input_select {
+            background-color: #FFF;
+            border-radius: .7rem;
+            outline: none;
+            border:none;
+            font-size: 2em;
+            padding: 1rem .75rem;
+            transition: all .3s;
+    
+            &:hover, 
+            &:focus {
+                background-color: #DDD;
+            }
+        }
+
+        .input_field {
+            width: 50%;
+        }
+
+        .input_select {
+            font-size: 1.5rem;
+            width: 30%;
         }
     }
 
@@ -88,15 +110,20 @@ body {
 }
 
 .item {
+    width: 30vw;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 2%;
-    margin: 3% 5% 3%;
+    gap: 5%;
+    margin: 3% auto 3%;
 
     .left {
+        display: flex;
+        
         img {
             border-radius: 1rem;
+            width: 225px;
+            height: 318px;
         }
 
         .questionMark {
@@ -114,17 +141,34 @@ body {
     }
 
     .right {
-        max-width: 22rem;
+        min-width: 17.5rem;
+        max-width: 25rem;
+        
         text-transform: uppercase;
         h1 {
+            line-height: 1.2;
             font-size: 1.75rem;
+            font-weight: 400;
             a {
                 color: $light-color;
+                text-decoration: .1rem underline;
     
                 &:hover {
                     color: #cecece;
                 }
             }
+            
+        }
+
+        p{
+            font-weight: 300;
+        }
+
+        span#episodes,
+        span#score,
+        span#type {
+            font-weight: 600;
+            font-size: 1.2rem;
         }
     }
 }
@@ -137,19 +181,34 @@ body {
             }
     }
 
+    .item {
+        margin-top: 2rem;
+        gap: 7%;
+    }
+
     .form {
         .btn {
             padding: 2rem 3rem;
         }
 
-        .input_field {
-            width: 90%;
-            padding: 1.5rem 1rem;
+        .inputs {
+            margin-top: 2rem;
+            flex-direction: column;
+            align-items: center;
+
+            .input_field {
+                width: 90%;
+                padding: 1.5rem 1rem;
+            }
+            .input_select {
+                padding: 1rem 1rem;
+                width: 90%;
+            }
         }
     }
     
 }
-@media (max-width: 480px) {
+@media (max-width: 512px) {
     .heading {
             h1 {
                 font-size: 2rem;
@@ -158,7 +217,7 @@ body {
 
     .item {
         text-align: center;
-        margin-top: 10%;
+        margin-top: 3rem;
         flex-direction: column;
     }
 
