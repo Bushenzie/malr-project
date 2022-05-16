@@ -1,4 +1,6 @@
 import { useState } from "react";
+import axios from "axios";
+
 import UserInput from "./components/UserInput";
 import Item from "./components/Item"
 import StatusShow from "./components/StatusShow";
@@ -23,36 +25,32 @@ const App = () => {
       setStatus("Loading...")
       
 
-      const response = await fetch(url);
-      const parsed = await response.json();
+      const response = await axios.get(url);
 
       // CHECKING FOR ERROR
-      if(parsed.status >= 300 || parsed.status <= 500 ) {
-          setData([])
-          setStatus("User Not Found");
-      } 
-      else {
-
+      if(response.status >= 200 || response.status < 300 ) {
+          
         // IF CATEGORY = 7(ALL) THEN SKIP FILTERING TO SHOW ALL ELSE FILTER BY CATEGORY
         let animeData;
         if(category === 7) {
-          animeData = parsed.data;
+          animeData = response.data.data;
         }
         else {
-          animeData = parsed.data.filter(item => item["watching_status"] === category)
-        }
 
+          animeData = response.data.data.filter(item => item["watching_status"] === category)
+          
+        }
+  
         //SET DATA TO STATE
         setData(animeData);
-
+  
         //PICKING RANDOM ANIME
         let randomNum = Math.floor(Math.random()*animeData.length);
-
+  
         //IF SOME LIST IS NOT EMPTY THEN PICK RANDOM
         if(animeData.length) {
-
+  
           setStatus("User Found");
-
           //GETTING SCORE FROM ANOTHER API CALL , CUZ FIRST ONE DOESNT SHOW SCORE 
           GetScore(`https://api.jikan.moe/v4/anime/${animeData[randomNum].anime.mal_id}`);
           setAnime({  name: animeData[randomNum].anime.title,
@@ -63,19 +61,24 @@ const App = () => {
         } else { 
           setStatus("User's list is Empty");
         }
+      } else {
+        setData([])
+        setStatus("User Not Found");
       }
       document.body.style.cursor = "default";
   }
 
   const GetScore = async (url) => {
-    const response = await fetch(url);
-    const parsed = await response.json();
-    setScore(parsed.data.score);
+    const response = await axios.get(url);
+    setScore(response.data.data.score);
   }
 
   return (
     <div className="container">
       <Heading />
+      <div className="error">
+        <p>If your list have more than 300 animes , then due to deprecation from Jikan API random picker will not work properly!</p>
+      </div>
       {data.length !== 0 ? 
       <Item 
       name={anime.name} 
