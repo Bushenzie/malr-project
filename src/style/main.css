@@ -133,7 +133,7 @@ body h1, body h2, body h3, body h4, body h5, body h6, body p {
 .error {
   font-weight: 600;
   text-align: center;
-  padding: 1vw 0;
+  padding: 1rem 2rem;
   background-color: #f72e2e;
 }
 
