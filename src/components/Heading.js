@@ -3,8 +3,8 @@ import React from 'react'
 const Heading = () => {
   return (
     <div className="heading">
-        <h1>MAL Random picker</h1>
-        <p>From your Plan To Watch Animelist</p>
+        <h1>Random Anime Picker</h1>
+        <p>From your MyAnimeList</p>
     </div>
   )
 }
